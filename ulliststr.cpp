@@ -56,6 +56,7 @@ void ULListStr::push_back(const std::string& val)
 
 void ULListStr::pop_back()
 {
+  //look here first if any memory leaks
   (tail_ -> last)--;
 
   //deallocate if empty
@@ -68,7 +69,43 @@ void ULListStr::pop_back()
 
 void ULListStr::push_front(const std::string& val)
 {
-  
+  //see if can add to front
+  if(head_ -> first == 0)
+  {
+    head_ -> prev = new Item;
+    head_ -> prev -> next = head_;
+    head_ = head_ -> prev;
+    //setting first to end of array
+    head_ -> first = 10;
+    head_ -> last = 10;
+  }
+
+  //add value before first element of array
+  head_ -> val[head_ -> first - 1] = val;
+  (head_ -> first)--;
+}
+
+void ULListStr::pop_front()
+{
+  //look here first for any memory leaks
+  (head_ -> first)++;
+
+  if(head_ -> first == head_ -> last)
+  {
+    head_ = head_ -> next;
+    delete (head_ -> prev);
+  }
+}
+
+//look here if compiler errors
+std::string const & ULListStr::back() const
+{
+  return (tail_ -> val[(tail_ -> last) - 1]);
+}
+
+std::string const & ULListStr::front() const
+{
+  return (head_ -> val[head_ -> first]);
 }
 
 void ULListStr::set(size_t loc, const std::string& val)
