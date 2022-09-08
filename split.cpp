@@ -11,12 +11,40 @@ the function below should be the only one in this file.
 */
 
 #include "split.h"
+#include <cstddef>
 
 /* Add a prototype for a helper function here if you need */
 
 void split(Node*& in, Node*& odds, Node*& evens)
 {
-  /* Add code here */
+  //termination if current node is null
+  if(in != NULL)
+  {
+    //odd
+    if((in->value)%2 == 1)
+    {
+      //odd pointer points to current node pointer
+      odds = in;
+      odds->value = in->value;
+      Node* follow = NULL;
+      split(in->next, follow, evens);
+      odds->next = follow;
+      in = NULL;
+    }
+    //even
+    else
+    {
+      //set current even noded to current in node
+      evens = in;
+      evens->value = in->value;
+      Node* follow = NULL; 
+      split(in->next, odds, follow);
+      evens->next = follow;
+      in = NULL;
+    }
+  }
+
+
 // WRITE YOUR CODE HERE
 
 }
