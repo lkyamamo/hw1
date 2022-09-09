@@ -17,3 +17,5 @@ cout << dat.get(0) << endl;
 // prints: 8 7 9
 cout << dat.size() << endl;  // prints 3 since there are 3 strings stored  return 0;
 }
+
+//ready to check

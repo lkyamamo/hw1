@@ -26,6 +26,8 @@ size_t ULListStr::size() const
 
 // WRITE YOUR CODE HERE
 
+//ready to check
+
 void ULListStr::push_back(const std::string& val)
 {
   //no items
