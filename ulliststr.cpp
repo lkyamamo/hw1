@@ -26,21 +26,15 @@ size_t ULListStr::size() const
 
 // WRITE YOUR CODE HERE
 
-bool ULListStr::empty() const
-{
-  if ((tail_ == head_) && (tail_ -> last == tail_ -> first))
-  {
-    return true;
-  }
-  else
-  {
-    return false;
-  }
-  
-}
-
 void ULListStr::push_back(const std::string& val)
 {
+  //no items
+  if(empty())
+  {
+    head_ = new Item;
+    tail_ = head_;
+  }
+
   //will this go off the end -> create new item
   if(tail_ -> last == ARRSIZE)
   {
@@ -52,12 +46,14 @@ void ULListStr::push_back(const std::string& val)
   //add value to end of current array
   tail_ -> val[tail_ -> last] = val;
   (tail_->last)++;
+  ++size_;
 }
 
 void ULListStr::pop_back()
 {
   //look here first if any memory leaks
   (tail_ -> last)--;
+  --size_;
 
   //deallocate if empty
   if(tail_ -> last == tail_ -> first)
@@ -69,6 +65,13 @@ void ULListStr::pop_back()
 
 void ULListStr::push_front(const std::string& val)
 {
+  //no items
+  if(empty())
+  {
+    head_ = new Item;
+    tail_ = head_;
+  }
+
   //see if can add to front
   if(head_ -> first == 0)
   {
@@ -83,12 +86,14 @@ void ULListStr::push_front(const std::string& val)
   //add value before first element of array
   head_ -> val[head_ -> first - 1] = val;
   (head_ -> first)--;
+  ++size_;
 }
 
 void ULListStr::pop_front()
 {
   //look here first for any memory leaks
   (head_ -> first)++;
+  --size_;
 
   if(head_ -> first == head_ -> last)
   {
@@ -106,6 +111,25 @@ std::string const & ULListStr::back() const
 std::string const & ULListStr::front() const
 {
   return (head_ -> val[head_ -> first]);
+}
+
+std::string* ULListStr::getValAtLoc(size_t loc) const
+{
+  Item* temp = head_;
+  while((loc >= (temp -> last) - (temp -> first)) && (temp -> next) != NULL)
+  {
+    loc -= (temp -> last) - (temp -> first);
+    temp = temp -> next;
+  }
+  //incase loc going over
+  if (loc > ((temp -> last) - (temp -> first)))
+  {
+    return NULL;
+  }
+  
+  //check math here for the - 1 term if not returning correct value
+  return &(temp -> val[(temp -> first) + loc]);
+
 }
 
 void ULListStr::set(size_t loc, const std::string& val)
