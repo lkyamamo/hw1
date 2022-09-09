@@ -11,8 +11,9 @@ ULListStr dat;
 dat.push_back("7");
 dat.push_front("8");
 dat.push_back("9");
-cout << dat.get(0) << " " << dat.get(1) << " " << dat.get(2) << endl;
+dat.pop_back();
+dat.pop_front();
+cout << dat.get(0) << endl;
 // prints: 8 7 9
-cout << dat.size() << endl;  // prints 3 since there are 3 strings stored
-  return 0;
+cout << dat.size() << endl;  // prints 3 since there are 3 strings stored  return 0;
 }

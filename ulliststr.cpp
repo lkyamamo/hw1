@@ -60,6 +60,7 @@ void ULListStr::pop_back()
   {
     tail_ = tail_ -> prev;
     delete (tail_ -> next);
+    tail_ -> next = NULL;
   }
 }
 
@@ -99,6 +100,7 @@ void ULListStr::pop_front()
   {
     head_ = head_ -> next;
     delete (head_ -> prev);
+    head_ -> prev = NULL;
   }
 }
 
@@ -122,7 +124,7 @@ std::string* ULListStr::getValAtLoc(size_t loc) const
     temp = temp -> next;
   }
   //incase loc going over
-  if (loc > ((temp -> last) - (temp -> first)))
+  if (loc >= ((temp -> last) - (temp -> first)))
   {
     return NULL;
   }
